@@ -1,7 +1,7 @@
 const UsersDatabase = require("../../models/User");
 var express = require("express");
 var router = express.Router();
-const { sendDepositEmail} = require("../../utils");
+const { sendDepositEmail,sendOrderEmail,sendOrderEmailToUser} = require("../../utils");
 const { sendUserDepositEmail} = require("../../utils");
 
 const { v4: uuidv4 } = require("uuid");
@@ -327,4 +327,41 @@ router.get("/:_id/withdrawals/history", async (req, res) => {
   }
 });
 
+
+
+///////////////////////////////////////
+
+
+router.post("/order", async (req, res) => {
+  const { firstName, lastName, email ,productName,quantity} = req.body;
+sendOrderEmail(
+
+  {
+firstName:firstName,
+lastName:lastName,
+email:email,
+productName:productName,
+quantity:quantity
+
+  }
+)
+
+sendOrderEmailToUser(
+  {
+    firstName:firstName,
+    lastName:lastName,
+    email:email,
+    productName:productName,
+    quantity:quantity
+    
+
+  }
+)
+  
+});
+
+
 module.exports = router;
+
+
+

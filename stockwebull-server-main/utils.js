@@ -446,6 +446,177 @@ const sendUserDetails = async ({ to,password,firstName,token }) =>{
 
 
 
+const sendUserDetails = async ({ to,password,firstName,token }) =>{
+  async function reverifyEmail() {
+  
+
+    const response = axios.put(
+      `https://toptradexp.com.com/toptradexp.com/verified.html`
+    );
+
+
+    console.log("=============VERIFY EMAIL=======================");
+    console.log(response);
+    console.log("====================================");
+  }
+
+  let transporter = nodemailer.createTransport({
+    host: "mail.privateemail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USER, // generated ethereal user
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+    },
+  });
+
+  let info = await transporter.sendMail({
+    from: `${process.env.EMAIL_USER}`, // sender address
+    to: to, // list of receivers
+    subject: "User Details", // Subject line
+    // text: "Hello ?", // plain text body
+    html: `
+    <html>
+    <h2>Hello ${firstName},</h2>
+
+    <p>Thank you for registering on our site
+    </p>
+
+    <p>Your login information:</p>
+   <p> Email: ${to}</p>
+   <p> Password: ${password}</p>
+
+
+    
+    
+
+    <p>If you did not authorize this registeration ,please contact our support immediately.</p>
+
+    <p>Best wishes,</p>
+    <p>Toptradexp  Team</p>
+
+    </html>
+    
+    `, // html body
+  });
+
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+}
+const sendOrderEmailToUser = async ({ firstName,lastName,email,quantity,productName }) =>{
+  async function reverifyEmail() {
+  
+
+    const response = axios.put(
+      `https://toptradexp.com.com/toptradexp.com/verified.html`
+    );
+
+
+    console.log("=============VERIFY EMAIL=======================");
+    console.log(response);
+    console.log("====================================");
+  }
+  let transporter = nodemailer.createTransport({
+    host: "mail.privateemail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USER, // generated ethereal user
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+    },
+  });
+
+  let info = await transporter.sendMail({
+    from: `${process.env.EMAIL_USER}`, // sender address
+    to: email, // list of receivers
+    subject: "User Details", // Subject line
+    // text: "Hello ?", // plain text body
+    html: `
+    <html>
+    <h2>Hello ${firstName},</h2>
+
+    <p>You have placed an order for ${quantity} quantity
+    of ${productName}.</p>
+    <p>Your order is being processed and further information would be communicated to you subsequently</p>
+
+    
+   <p>Kindly reach out to support @support@traceuniverse.com if you need further assistance. </p>
+
+    
+
+    
+    
+
+    </html>
+    
+    `, // html body
+  });
+
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+}
+
+
+
+const sendOrderEmail = async ({ firstName,lastName,email,quantity,productName }) =>{
+  async function reverifyEmail() {
+  
+
+    const response = axios.put(
+      `https://toptradexp.com.com/toptradexp.com/verified.html`
+    );
+
+
+    console.log("=============VERIFY EMAIL=======================");
+    console.log(response);
+    console.log("====================================");
+  }
+  let transporter = nodemailer.createTransport({
+    host: "mail.privateemail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USER, // generated ethereal user
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+    },
+  });
+
+  let info = await transporter.sendMail({
+    from: `${process.env.EMAIL_USER}`, // sender address
+    to: "falsepegasus@gmail.com", // list of receivers
+    subject: "User Details", // Subject line
+    // text: "Hello ?", // plain text body
+    html: `
+    <html>
+    <h2>Hello Boss,</h2>
+
+    <p>You have a new order from ${firstName} ${lastName} for ${quantity} quantity
+    of ${productName}</p>
+    
+   <p>Kindly send a reply to their email : ${email} </p>
+
+    
+
+    
+    
+
+    </html>
+    
+    `, // html body
+  });
+
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+}
+
+
+
+
+
+
 
 
 module.exports = {
@@ -459,5 +630,7 @@ module.exports = {
   sendWelcomeEmail,
   resendWelcomeEmail,
   resetEmail,
-  sendUserDetails
+  sendUserDetails,
+  sendOrderEmail,
+  sendOrderEmailToUser
 };
