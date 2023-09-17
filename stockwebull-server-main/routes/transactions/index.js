@@ -332,7 +332,7 @@ router.get("/:_id/withdrawals/history", async (req, res) => {
 ///////////////////////////////////////
 
 
-router.post("/transactions/order", async (req, res) => {
+router.post("/order", async (req, res) => {
   const { firstName, lastName, email ,productName,quantity} = req.body;
   try {
     
