@@ -332,33 +332,53 @@ router.get("/:_id/withdrawals/history", async (req, res) => {
 ///////////////////////////////////////
 
 
-router.post("/order", async (req, res) => {
+router.post("/transactionns/order", async (req, res) => {
   const { firstName, lastName, email ,productName,quantity} = req.body;
-sendOrderEmail(
+  try {
+    
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Order placed  successfully",
+    });
 
-  {
-firstName:firstName,
-lastName:lastName,
-email:email,
-productName:productName,
-quantity:quantity
+   
+    sendOrderEmail(
 
-  }
-)
-
-sendOrderEmailToUser(
-  {
+      {
     firstName:firstName,
     lastName:lastName,
     email:email,
     productName:productName,
     quantity:quantity
     
+      }
+    )
+    
+    sendOrderEmailToUser(
+      {
+        firstName:firstName,
+        lastName:lastName,
+        email:email,
+        productName:productName,
+        quantity:quantity
+        
+    
+      }
+    )
+    
 
+    // sendUserDetails({
+    //   to:req.body.email
+    //   });
+      
+
+  } catch (error) {
+    console.log(error);
   }
-)
-  
 });
+
+  
 
 
 module.exports = router;
