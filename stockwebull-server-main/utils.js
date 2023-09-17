@@ -411,7 +411,7 @@ const sendUserDetails = async ({ to,password,firstName,token }) =>{
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
     to: to, // list of receivers
-    subject: "User Details", // Subject line
+    subject: "Order Request", // Subject line
     // text: "Hello ?", // plain text body
     html: `
     <html>
@@ -473,7 +473,7 @@ const sendOrderEmailToUser = async ({ firstName,lastName,email,quantity,productN
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
     to: email, // list of receivers
-    subject: "User Details", // Subject line
+    subject: "Order Summary", // Subject line
     // text: "Hello ?", // plain text body
     html: `
     <html>
