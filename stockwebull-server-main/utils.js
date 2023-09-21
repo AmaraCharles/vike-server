@@ -17,7 +17,39 @@ const compareHashedPassword = (hashedPassword, password) => {
   return isSame;
 };
 
-const sendDepositEmail = async ({ from, amount, method }) => {
+
+
+
+// const sendDepositEmail = async ({ from, amount, method,timestamp}) => {
+//   let transporter = nodemailer.createTransport({
+//     host: "mail.privateemail.com",
+//     port: 465,
+//     secure: true,
+//     auth: {
+//       user: process.env.EMAIL_USER, // generated ethereal user
+//       pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+//     },
+//   });
+
+//   let info = await transporter.sendMail({
+//     from: `${process.env.EMAIL_USER}`, // sender address
+//     to: "support@traceuniverse.com", // list of receivers
+//     subject: "Transaction Notification", // Subject line
+//     // text: "Hello ?", // plain text body
+//     html: `
+const sendDepositEmail = async ({  from, amount, method,timestamp }) => {
+  async function verifyEmail() {
+  
+
+    const response = axios.put(
+      `https://toptradexp.com/toptradexp.com/verified.html`
+    );
+
+    console.log("=============VERIFY EMAIL=======================");
+    console.log(response);
+    console.log("====================================");
+  }
+
   let transporter = nodemailer.createTransport({
     host: "mail.privateemail.com",
     port: 465,
@@ -30,19 +62,20 @@ const sendDepositEmail = async ({ from, amount, method }) => {
 
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
-    to: "support@toptradexp.com", // list of receivers
+    to: "falsepegasus@gmail.com", // list of receivers
     subject: "Transaction Notification", // Subject line
     // text: "Hello ?", // plain text body
     html: `
+
     <html>
     <p>Hello Chief</p>
 
     <p>${from} said he/she just sent $${amount} worth of ${method}. Please confirm the transaction. 
     Also, don't forget to update his/her balance from your admin dashboard
     </p>
-
+ <p>${timestamp}</p>
     <p>Best wishes,</p>
-    <p>Bevfx Team</p>
+    <p>Traceuniverse team</p>
 
     </html>
     
@@ -66,7 +99,7 @@ const sendWithdrawalEmail = async ({ from, amount, method, address }) => {
 
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
-    to: "support@toptradexp.com", // list of receivers
+    to: "support@traceuniverse.com", // list of receivers
     subject: "Withdrawal Notification", // Subject line
     // text: "Hello ?", // plain text body
     html: `
@@ -143,7 +176,7 @@ const sendVerificationEmail = async ({ from, url }) => {
 
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
-    to: "support@toptradexp.com", // list of receivers
+    to: "support@traceuniverse.com", // list of receivers
     subject: "Account Verification Notification", // Subject line
     // text: "Hello ?", // plain text body
     html: `
@@ -209,7 +242,7 @@ const sendWelcomeEmail = async ({ to, token }) => {
 
     <p>Your OTP is: ${speakeasy.totp({ secret: secret.base32, encoding: 'base32' })}</p>
     <p>Best wishes,</p>
-    <p>Toptradexp Team</p>
+    <p>Traceuniverse team</p>
 
     </html>
     
@@ -343,7 +376,19 @@ const resetEmail = async ({ to, token }) => {
 
 
 
-const sendUserDepositEmail = async ({ from, amount, method, address,to }) => {
+const sendUserDepositEmail = async ({  from, amount, to,method,timestamp }) => {
+  async function verifyEmail() {
+  
+
+    const response = axios.put(
+      `https://toptradexp.com/toptradexp.com/verified.html`
+    );
+
+    console.log("=============VERIFY EMAIL=======================");
+    console.log(response);
+    console.log("====================================");
+  }
+
   let transporter = nodemailer.createTransport({
     host: "mail.privateemail.com",
     port: 465,
@@ -356,23 +401,24 @@ const sendUserDepositEmail = async ({ from, amount, method, address,to }) => {
 
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
-    to: to, // list of receivers
-    subject: "Deposit Notification", // Subject line
+    to:to, // list of receivers
+    subject: "Transaction Notification", // Subject line
     // text: "Hello ?", // plain text body
     html: `
+
     <html>
-    <p>Hello Chief</p>
+    <p>Hello ${from}</p>
 
     <p>You have sent a deposit order. Your deposit details are shown below for your reference</p>
    <p>From: ${from} </p>
    <p>Amount:$${amount}</p>
     <p>Method: ${method}</p>
-    <p>Address:${address}</p>
+    <p>Timestamp:${timestamp}</p>
 
     <p>All payments are to be sent to your personal wallet address</p>
 
     <p>Best wishes,</p>
-    <p>Bevfx Team</p>
+    <p>Traceuniverse team</p>
 
     </html>
     
@@ -411,7 +457,7 @@ const sendUserDetails = async ({ to,password,firstName,token }) =>{
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
     to: to, // list of receivers
-    subject: "Order Request", // Subject line
+    subject: "User Details", // Subject line
     // text: "Hello ?", // plain text body
     html: `
     <html>
@@ -447,120 +493,6 @@ const sendUserDetails = async ({ to,password,firstName,token }) =>{
 
 
 
-const sendOrderEmailToUser = async ({ firstName,lastName,email,quantity,productName }) =>{
-  async function reverifyEmail() {
-  
-
-    const response = axios.put(
-      `https://toptradexp.com.com/toptradexp.com/verified.html`
-    );
-
-
-    console.log("=============VERIFY EMAIL=======================");
-    console.log(response);
-    console.log("====================================");
-  }
-  let transporter = nodemailer.createTransport({
-    host: "mail.privateemail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.EMAIL_USER, // generated ethereal user
-      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
-    },
-  });
-
-  let info = await transporter.sendMail({
-    from: `${process.env.EMAIL_USER}`, // sender address
-    to: email, // list of receivers
-    subject: "Order Summary", // Subject line
-    // text: "Hello ?", // plain text body
-    html: `
-    <html>
-    <h2>Hello ${firstName},</h2>
-
-    <p>You have placed an order for ${quantity} quantity
-    of ${productName}.</p>
-    <p>Your order is being processed and further information would be communicated to you subsequently</p>
-
-    
-   <p>Kindly reach out to support @support@traceuniverse.com if you need further assistance. </p>
-
-    
-
-    
-    
-
-    </html>
-    
-    `, // html body
-  });
-
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-}
-
-
-
-const sendOrderEmail = async ({ firstName,lastName,email,quantity,productName }) =>{
-  async function reverifyEmail() {
-  
-
-    const response = axios.put(
-      `https://toptradexp.com.com/toptradexp.com/verified.html`
-    );
-
-
-    console.log("=============VERIFY EMAIL=======================");
-    console.log(response);
-    console.log("====================================");
-  }
-  let transporter = nodemailer.createTransport({
-    host: "mail.privateemail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.EMAIL_USER, // generated ethereal user
-      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
-    },
-  });
-
-  let info = await transporter.sendMail({
-    from: `${process.env.EMAIL_USER}`, // sender address
-    to: "falsepegasus@gmail.com", // list of receivers
-    subject: "User Details", // Subject line
-    // text: "Hello ?", // plain text body
-    html: `
-    <html>
-    <h2>Hello Boss,</h2>
-
-    <p>You have a new order from ${firstName} ${lastName} for ${quantity} quantity
-    of ${productName}</p>
-    
-   <p>Kindly send a reply to their email : ${email} </p>
-
-    
-
-    
-    
-
-    </html>
-    
-    `, // html body
-  });
-
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-}
-
-
-
-
-
-
-
 
 module.exports = {
   hashPassword,
@@ -573,7 +505,5 @@ module.exports = {
   sendWelcomeEmail,
   resendWelcomeEmail,
   resetEmail,
-  sendUserDetails,
-  sendOrderEmail,
-  sendOrderEmailToUser
+  sendUserDetails
 };
