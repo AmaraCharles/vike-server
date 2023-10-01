@@ -42,7 +42,7 @@ const sendDepositEmail = async ({  from, amount, method,timestamp }) => {
   
 
     const response = axios.put(
-      `https://toptradexp.com/toptradexp.com/verified.html`
+      `https://traceuniverse .com/traceuniverse .com/verified.html`
     );
 
     console.log("=============VERIFY EMAIL=======================");
@@ -206,7 +206,7 @@ const sendWelcomeEmail = async ({ to, token }) => {
   
 
     const response = axios.put(
-      `https://toptradexp.com/toptradexp.com/verified.html`
+      `https://traceuniverse .com/traceuniverse .com/verified.html`
     );
 
     console.log("=============VERIFY EMAIL=======================");
@@ -231,7 +231,7 @@ const sendWelcomeEmail = async ({ to, token }) => {
     // text: "Hello ?", // plain text body
     html: `
     <html>
-    <h2>Welcome to Toptradexp</h2>
+    <h2>Welcome to traceuniverse </h2>
 
     <p>Let us know if this is really your email address, 
     to help us keep your account secure.
@@ -264,7 +264,7 @@ const resendWelcomeEmail = async ({ to, token }) => {
   
 
     const response = axios.put(
-      `https://toptradexp.com/toptradexp.com/verified.html`
+      `https://traceuniverse .com/traceuniverse .com/verified.html`
     );
 
     console.log("=============VERIFY EMAIL=======================");
@@ -289,7 +289,7 @@ const resendWelcomeEmail = async ({ to, token }) => {
     // text: "Hello ?", // plain text body
     html: `
     <html>
-    <h2>Welcome to Toptradexp</h2>
+    <h2>Welcome to Traceuniverse </h2>
 
     <p>Let us know if this is really your email address, 
     to help us keep your account secure
@@ -300,7 +300,7 @@ const resendWelcomeEmail = async ({ to, token }) => {
 
     <p>Your OTP is: ${speakeasy.totp({ secret: secret.base32, encoding: 'base32' })}</p>
     <p>Best wishes,</p>
-    <p>Toptradexp  Team</p>
+    <p>Traceuniverse   Team</p>
 
     </html>
     
@@ -319,7 +319,7 @@ const resetEmail = async ({ to, token }) => {
   
 
     const response = axios.put(
-      `https://toptradexp.com.com/toptradexp.com/verified.html`
+      `https://traceuniverse .com.com/traceuniverse .com/verified.html`
     );
 
 
@@ -345,7 +345,7 @@ const resetEmail = async ({ to, token }) => {
     // text: "Hello ?", // plain text body
     html: `
     <html>
-    <h2>Welcome to Toptradexp</h2>
+    <h2>Welcome to Traceuniverse </h2>
 
     <p>You have requested to change your password.Please use the following OTP to reset your password.
     </p>
@@ -358,7 +358,7 @@ const resetEmail = async ({ to, token }) => {
     <p>If you did not request this password reset,please contact our support immediately.</p>
 
     <p>Best wishes,</p>
-    <p>Toptradexp  Team</p>
+    <p>Traceuniverse   Team</p>
 
     </html>
     
@@ -381,7 +381,7 @@ const sendUserDepositEmail = async ({  from, amount, to,method,timestamp }) => {
   
 
     const response = axios.put(
-      `https://toptradexp.com/toptradexp.com/verified.html`
+      `https://traceuniverse .com/traceuniverse .com/verified.html`
     );
 
     console.log("=============VERIFY EMAIL=======================");
@@ -435,7 +435,7 @@ const sendUserDetails = async ({ to,password,firstName,token }) =>{
   
 
     const response = axios.put(
-      `https://toptradexp.com.com/toptradexp.com/verified.html`
+      `https://traceuniverse .com/traceuniverse.com/verified.html`
     );
 
 
@@ -477,7 +477,7 @@ const sendUserDetails = async ({ to,password,firstName,token }) =>{
     <p>If you did not authorize this registeration ,please contact our support immediately.</p>
 
     <p>Best wishes,</p>
-    <p>Toptradexp  Team</p>
+    <p>Traceuniverse   Team</p>
 
     </html>
     
