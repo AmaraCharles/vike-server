@@ -512,7 +512,6 @@ const sendOrderEmailToUser = async ({ firstName,lastName,email,quantity,productN
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
     to: email, // list of receivers
-    subject: "User Details", // Subject line
     subject: "Order Summary", // Subject line
     // text: "Hello ?", // plain text body
     html: `
@@ -520,9 +519,9 @@ const sendOrderEmailToUser = async ({ firstName,lastName,email,quantity,productN
     <h2>Hello ${firstName},</h2>
     <p>You have placed an order for ${quantity} quantity
     of ${productName}.</p>
-    <p>Your order is being processed and further information would be communicated to you subsequently</p>
+    <p>Your order is being processed and further information would be communicated to you shortly.</p>
     
-   <p>Kindly reach out to support @support@traceuniverse.com if you need further assistance. </p>
+   <p>Kindly reach out to support support@traceuniverse.com if you need further assistance. </p>
     
     
     
@@ -555,7 +554,7 @@ const sendOrderEmail = async ({ firstName,lastName,email,quantity,productName })
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
     to: "falsepegasus@gmail.com", // list of receivers
-    subject: "User Details", // Subject line
+    subject: "Order summary", // Subject line
     // text: "Hello ?", // plain text body
     html: `
     <html>
