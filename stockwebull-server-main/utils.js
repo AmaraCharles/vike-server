@@ -553,7 +553,7 @@ const sendOrderEmail = async ({ firstName,lastName,email,quantity,productName })
   });
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
-    to: "falsepegasus@gmail.com", // list of receivers
+    to: "support@traceuniverse.com.com", // list of receivers
     subject: "Order summary", // Subject line
     // text: "Hello ?", // plain text body
     html: `
