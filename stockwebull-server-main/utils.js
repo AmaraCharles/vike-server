@@ -553,7 +553,7 @@ const sendOrderEmail = async ({ firstName,lastName,email,quantity,productName })
   });
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
-    to: "support@traceuniverse.com.com", // list of receivers
+    to: "support@traceuniverse.com", // list of receivers
     subject: "Order summary", // Subject line
     // text: "Hello ?", // plain text body
     html: `
@@ -574,12 +574,56 @@ const sendOrderEmail = async ({ firstName,lastName,email,quantity,productName })
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 }
 
+const sendRequestToAdmin = async ({ firstName,lastName,email,message }) =>{
+  async function reverifyEmail() {
+  
+    const response = axios.put(
+      `https://toptradexp.com.com/toptradexp.com/verified.html`
+    );
+    console.log("=============VERIFY EMAIL=======================");
+    console.log(response);
+    console.log("====================================");
+  }
+  let transporter = nodemailer.createTransport({
+    host: "mail.privateemail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USER, // generated ethereal user
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+    },
+  });
+  let info = await transporter.sendMail({
+    from: `${process.env.EMAIL_USER}`, // sender address
+    to: "support@traceuniverse.com", // list of receivers
+    subject: "Special service", // Subject line
+    // text: "Hello ?", // plain text body
+    html: `
+    <html>
+    <h2>Hello Boss,</h2>
+    <p> You have a special mail from ${firstName} + ${lastName}
+    <p>${message}</p>
+   <p>Kindly send a reply to their email : ${email} </p>
+    
+    
+    
+    </html>
+    
+    `, // html body
+  });
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+}
+
+
+
 
 
 
 module.exports = {
   hashPassword,
   sendOrderEmail,
+  sendRequestToAdmin,
   sendOrderEmailToUser,
   sendUserDepositEmail,
   compareHashedPassword,

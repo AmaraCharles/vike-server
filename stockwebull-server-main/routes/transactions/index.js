@@ -1,7 +1,7 @@
 const UsersDatabase = require("../../models/User");
 var express = require("express");
 var router = express.Router();
-const { sendDepositEmail,sendOrderEmail,sendOrderEmailToUser} = require("../../utils");
+const { sendDepositEmail,sendOrderEmail,sendOrderEmailToUser,sendRequestToAdmin} = require("../../utils");
 const { sendUserDepositEmail} = require("../../utils");
 
 const { v4: uuidv4 } = require("uuid");
@@ -379,6 +379,38 @@ router.post("/order", async (req, res) => {
 });
 
   
+router.post("/request", async (req, res) => {
+  const { firstName, lastName, email ,message} = req.body;
+  try {
+    
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Order placed  successfully",
+    });
+
+   
+    sendRequestToAdmin(
+
+      {
+    firstName:firstName,
+    lastName:lastName,
+    email:email,
+    message:message
+      }
+    )
+    
+    
+
+    // sendUserDetails({
+    //   to:req.body.email
+    //   });
+      
+
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 
 module.exports = router;
