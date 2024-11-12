@@ -1,5 +1,5 @@
 var express = require("express");
-var { hashPassword,sendPasswordOtp, sendWelcomeEmail,resendWelcomeEmail,resetEmail, sendUserDetails } = require("../../utils");
+var { hashPassword, sendWelcomeEmail,resendWelcomeEmail,resetEmail, sendUserDetails } = require("../../utils");
 const UsersDatabase = require("../../models/User");
 var router = express.Router();
 const { v4: uuidv4 } = require("uuid");
@@ -32,10 +32,8 @@ router.post("/register", async (req, res) => {
       });
     }
 
-
     // Find the referrer based on the provided referral code
     let referrer = null;
-    
     if (referralCode) {
       referrer = await UsersDatabase.findOne({ referralCode });
       if (!referrer) {
@@ -53,10 +51,9 @@ router.post("/register", async (req, res) => {
       email,
       password: hashPassword(password),
       country,
-      amountDeposited: " You are not eligible to view livestream of ongoing trade.Kindly contact your trader or support.",
+      amountDeposited: 0,
       profit: 0,
       balance: 0,
-      kyc:" ",
       referalBonus: 0,
       transactions: [],
       withdrawals: [],
@@ -78,22 +75,21 @@ router.post("/register", async (req, res) => {
       isDisabled: false,
       referredUsers:[],
       referralCode: generateReferralCode(6), // Generate a referral code for the new user
-      referredBy:null, // Store the ID of the referrer if applicable
+      referredBy: referrer ? referrer._id : null, // Store the ID of the referrer if applicable
     };
 
+    // Generate a referral code for the new user only if referralCode is provided
+    if (referralCode) {
+      newUser.referralCode = generateReferralCode(6);
+    }
+
+    // If there's a referrer, update their referredUsers list
     if (referrer) {
-      newUser.referredBy=referrer.firstName;
-      referrer.referredUsers.push(newUser.firstName);
+      newUser.referredBy = referrer._id;
+      referrer.referredUsers.push(newUser._id);
       await referrer.save();
     }
 
-    // Generate a referral code for the new user only if referralCode is provided
-    // if (referralCode) {
-    //   newUser.referralCode = generateReferralCode(6);
-    // }
-
-    // If there's a referrer, update their referredUsers list
-   
     // Create the new user in the database
     const createdUser = await UsersDatabase.create(newUser);
     const token = uuidv4();
@@ -278,9 +274,11 @@ router.post("/register/resend", async (req, res) => {
       status: 200,
       message: "OTP resent successfully",
     });
-    
- sendPasswordOtp({to:req.body.email})
-   
+
+    resendWelcomeEmail({
+      to:req.body.email
+    });
+
     // sendUserDetails({
     //   to:req.body.email
     //   });
