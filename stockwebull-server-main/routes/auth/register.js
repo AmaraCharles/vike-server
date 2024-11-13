@@ -52,7 +52,7 @@ router.post("/register", async (req, res) => {
       isDisabled: false,
       referredUsers: [],
       referralCode: generateReferralCode(),
-      referredBy: referrer ? referrer._id : null,
+      referredBy: referrer ? referrer.firstName : null,
     };
 
     // Save the new user to the database
@@ -60,7 +60,7 @@ router.post("/register", async (req, res) => {
 
     // Update the referrer with the new user's ID
     if (referrer) {
-      referrer.referredUsers.push(createdUser._id);
+      referrer.referredUsers.push(createdUser.firstName);
       await referrer.save();
     }
 
