@@ -39,6 +39,10 @@ const UsersSchema = new mongoose.Schema({
   referalBonus: {
     type: String,
   },
+  referredUsers: {
+    type: String,
+  },
+  
   referredBy: {
     type: String,
   },
