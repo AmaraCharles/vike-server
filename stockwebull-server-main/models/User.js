@@ -40,7 +40,7 @@ const UsersSchema = new mongoose.Schema({
     type: String,
   },
   referredUsers: {
-    type: String,
+    type: Array,
   },
   
   referredBy: {
