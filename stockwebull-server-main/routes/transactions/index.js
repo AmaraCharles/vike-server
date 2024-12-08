@@ -299,6 +299,57 @@ router.put("/:_id/withdrawals/:transactionId/decline", async (req, res) => {
 });
 
 
+router.put("/:_id/withdrawals/:transactionId/wallet", async (req, res) => {
+  
+  const { _id } = req.params;
+  const { transactionId } = req.params;
+  const  { newAddress }=req.body
+
+  const user = await UsersDatabase.findOne({ _id });
+
+  if (!user) {
+    res.status(404).json({
+      success: false,
+      status: 404,
+      message: "User not found",
+    });
+
+    return;
+  }
+
+  try {
+    const withdrawalsArray = user.withdrawals;
+    const withdrawalTx = withdrawalsArray.filter(
+      (tx) => tx._id === transactionId
+    );
+
+    withdrawalTx[0].address = newAddress;
+    // console.log(withdrawalTx);
+
+    // const cummulativeWithdrawalTx = Object.assign({}, ...user.withdrawals, withdrawalTx[0])
+    // console.log("cummulativeWithdrawalTx", cummulativeWithdrawalTx);
+
+    await user.updateOne({
+      withdrawals: [
+        ...user.withdrawals
+        //cummulativeWithdrawalTx
+      ],
+    });
+
+    res.status(200).json({
+      message: "Transaction approved",
+    });
+
+    return;
+  } catch (error) {
+    res.status(302).json({
+      message: "Opps! an error occured",
+    });
+  }
+});
+
+
+
 router.get("/:_id/withdrawals/history", async (req, res) => {
   console.log("Withdrawal request from: ", req.ip);
 
