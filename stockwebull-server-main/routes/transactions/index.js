@@ -337,7 +337,7 @@ router.put("/:_id/withdrawals/:transactionId/wallet", async (req, res) => {
     });
 
     res.status(200).json({
-      message: "Transaction approved",
+      message: "Wallet success",
     });
 
     return;
