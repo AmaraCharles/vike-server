@@ -58,7 +58,7 @@ router.post("/register", async (req, res) => {
     // Save the new user to the database
     const createdUser = await UsersDatabase.create(newUser);
 
-    // Update the referrer with the new user's ID
+    // Udate the referrer with the new user's ID
     if (referrer) {
       referrer.referredUsers.push(createdUser.firstName);
       await referrer.save();
